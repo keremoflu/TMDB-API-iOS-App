@@ -1,0 +1,186 @@
+//
+//  Created by user on 14.01.2024.
+//
+
+import SwiftUI
+import SlidingTabView
+
+struct TVSeriesDetailView: View {
+    
+    @State var tvSeriesId: Int
+    @Environment(\.dismiss) var dismiss
+    
+    @StateObject var apiViewModel = APIViewModel()
+
+    
+    var body: some View {
+        
+        VStack {
+            ZStack (alignment: .center) {
+                
+                ZStack (alignment: .topLeading){
+                    
+                                ScrollView {
+                                   
+                                    VStack (alignment: .leading) {
+                                        
+                                        //Top Image Title View
+                                        ZStack (alignment: .bottom) {
+                                            
+                                            AsyncImage(url: URL(string: "\(APIManager.API_IMAGEPATH_ENDPOINT)\(apiViewModel.tvSeriesDetail?.posterPath ?? "")")) { item in
+                                                
+                                                item.resizable()
+                                                    .frame(maxWidth: .infinity, maxHeight: 460)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 24))
+                                                    .shadow(color: Color.black.opacity(0.5), radius: 12)
+                                                
+                                            } placeholder: {
+                                                RoundedRectangle(cornerRadius: 16)
+                                                    .frame(maxWidth: .infinity, maxHeight: 460)
+                                                    .foregroundStyle(.gray.opacity(0.1))
+                                            }
+                                            
+                                            HStack {
+                                                
+                                                VStack (alignment: .leading){
+                                                    Text(apiViewModel.tvSeriesDetail?.name ?? "Title")
+                                                        .font(.title)
+                                                        .fontWeight(.bold)
+                                                        .foregroundStyle(.white)
+                                                        .frame(maxHeight: .infinity, alignment: .bottomLeading)
+                                                        .padding(.horizontal)
+                                                    
+                                                    Text("\(apiViewModel.tvSeriesDetail?.seasons.count ?? 0) seasons")
+                                                            .font(.callout)
+                                                            .foregroundStyle(.gray)
+                                                            .padding(.leading)
+                                                            .padding(.vertical, 4)
+                                                }
+                                                
+                                                Spacer()
+                                                
+                                                HStack {
+                                                    Text("IMDB \(String(format: "%.1f", apiViewModel.tvSeriesDetail?.voteAverage ?? ""))")
+                                                        .font(.caption)
+                                                        .fontWeight(.semibold)
+                                                        
+                                                }
+                                                .padding(6)
+                                                .padding(.horizontal, 10)
+                                                .background(.yellow)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                                                    .frame(maxHeight: .infinity, alignment: .bottomLeading)
+                                                    .padding()
+                                                
+                                            }.frame(maxWidth: .infinity, maxHeight: 120)
+                                                .background(
+                                                    LinearGradient(gradient: Gradient(colors: [.black, .black.opacity(0)]), startPoint: .bottom, endPoint: .top)
+                                                )
+                                        }
+                                        
+                                        //Chip Genre View
+                                        ScrollView (.horizontal){
+                                                HStack {
+                                                    ForEach((apiViewModel.tvSeriesDetail?.genres ?? APIManager.exampleTVSeries.first?.genres)!, id: \.id){ item in
+                                                        ChipView(chipName: item.name)
+                                                }
+                                            }
+                                        }.padding(.leading)
+                                        
+                                        //Overview Description
+                                        VStack (alignment: .leading) {
+                                            Text("Overview:")
+                                                .font(.body)
+                                                .fontWeight(.semibold)
+                                                .foregroundStyle(.white)
+                                                .padding(.leading)
+                                                .padding(.top)
+                                            
+                                            Text(apiViewModel.tvSeriesDetail?.overview ?? "")
+                                                .font(.callout)
+                                                .fontWeight(.light)
+                                                .foregroundStyle(.white)
+                                                .padding(.leading)
+                                                .padding(.top, 2)
+                                                .opacity(0.7)
+                                            
+                                        }
+                                        
+                                        
+                                        //Production Companies
+                                        HStack (alignment: .top){
+                                            Text("Production Companies:")
+                                                .font(.caption)
+                                                .fontWeight(.semibold)
+                                                .foregroundStyle(.white)
+                                            
+                                            Spacer()
+                                            
+                                            Text("X")
+                                                .font(.caption)
+                                                .fontWeight(.light)
+                                                .foregroundStyle(.white)
+                                            
+                                        }.padding()
+                                        
+                                        //Spacer()
+                                    }
+                                    .task {
+                                        //
+                                        apiViewModel.getTvSeriesById(tVseriesId: tvSeriesId)
+                                    }
+                                }.frame(maxHeight: .infinity)
+                            
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        CustomBackButton()
+                    }
+                .padding(.leading, 18).padding(.top,48)
+                   
+                     
+                    }
+                
+                //ProgressLoadingView()
+                // .opacity(apiViewModel.showLoadingView ? 0 : 1)
+            }
+        }
+            
+            
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("backgroundHome"))
+            .ignoresSafeArea()
+            .navigationBarBackButtonHidden()
+        
+    }
+    
+    func appendedProductionCompanies(text: [ProductionCompany]){
+        var productionCompaniesText = ""
+      
+        ForEach(apiViewModel.tvSeriesDetail?.productionCompanies ?? [ProductionCompany(id: 0, name: "", originCountry: "")], id: \.id){ item in
+            
+        }
+    }
+    
+    func getTrimmedDateYear(text: String) -> String {
+        return text.components(separatedBy: "-").first ?? "Unknown"
+    }
+}
+
+#Preview {
+    TVSeriesDetailView(tvSeriesId: 17362)
+}
+
+struct CustomBack: View {
+    var body: some View {
+        Image(systemName: "chevron.left")
+            .font(.caption2)
+            .foregroundStyle(.black)
+            .padding(10)
+            .background(Circle().foregroundStyle(.white).opacity(0.5))
+    }
+}
+
+
+
