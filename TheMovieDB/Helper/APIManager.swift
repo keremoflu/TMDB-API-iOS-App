@@ -10,8 +10,8 @@ import Foundation
 struct APIManager {
     
     static var API_ENDPOINT = "https://api.themoviedb.org/3/"
-    static var API_KEY = "e428153e5055fdf4c90466f35a1f5afa"
-    static var API_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNDI4MTUzZTUwNTVmZGY0YzkwNDY2ZjM1YTFmNWFmYSIsInN1YiI6IjVhOTZmNTExYzNhMzY4NjE1YTAwMTU0MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RQF434cNcc_5G5zGm5m67aT9IoCmRGKgivfh0rOSFhI"
+    static var API_KEY = "API_KEY_HERE"
+    static var API_TOKEN = "API_TOKEN_HERE"
     static var API_IMAGEPATH_ENDPOINT = "https://image.tmdb.org/t/p/w500"
     
     static var exampleModel: Movie = Movie(adult: false, backdropPath: "xxx",
