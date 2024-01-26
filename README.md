@@ -24,8 +24,5 @@ GitHub movie db
 # Requirements
 Firstly Sign Up to www.themoviedb.org and get your API Key and Token from https://www.themoviedb.org/settings/api
 
-# Disclaimer
-This iOS project developed by 3-4 months experienced developer. There might be solid principles, mvvm architecture and related mistakes.
-
 # Contact
 If you wish to contact, feel free to mail me; keremoflu@yandex.com
