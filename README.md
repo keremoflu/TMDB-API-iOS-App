@@ -7,10 +7,7 @@ GitHub movie db
 [![Xcode](https://img.shields.io/badge/Xcode-3D8ED9?style=flat&link=https://developer.apple.com/xcode//)](https://developer.apple.com/xcode/)
 [![TMDB](https://img.shields.io/badge/TMDB-API-3CC161?labelColor=868686&style=flat&link=https://www.themoviedb.org/)](https://www.themoviedb.org/)
 
-![Airbnb Clone iOS App](https://github.com/keremoflu/The-Movie-Database-iOS-App/assets/4960295/1a21c579-5ae3-4f1f-9631-1f4c7e450909)
-
-
-
+![The Movie Database iOS App](https://github.com/keremoflu/The-Movie-Database-iOS-App/assets/4960295/0d354266-57f9-4018-a327-bbc8cf441afe)
 
 # Features
 * Listing Movies Trending Today, Movies By Genre, Videos of Popular Movies
